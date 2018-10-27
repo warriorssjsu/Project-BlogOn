@@ -1,0 +1,1 @@
+var bloggerpage = angular.module("bloggerpage",[ngResource]);

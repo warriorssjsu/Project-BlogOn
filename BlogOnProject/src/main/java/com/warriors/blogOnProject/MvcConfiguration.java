@@ -24,4 +24,12 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter
         resolver.setViewClass(JstlView.class);
         registry.viewResolver(resolver);
     }
+    
+        @Override
+        public void addViewControllers(ViewControllerRegistry registry) {
+            registry.addViewController("/").setViewName("home");
+            registry.addViewController("/login").setViewName("homeafterlogin");
+            registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+            super.addViewControllers(registry);
+        }
 }

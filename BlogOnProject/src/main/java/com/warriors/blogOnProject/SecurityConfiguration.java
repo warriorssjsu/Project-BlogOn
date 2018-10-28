@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/saml*").permitAll()
+                .antMatchers("/saml*","/", "/about").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .apply(saml())
@@ -54,10 +54,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .metadataFilePath(this.metadataUrl);
     }
     
-    @Bean 
-    public WebSSOProfileConsumer getWebSSOProfileConsumerImpl(){
-        WebSSOProfileConsumerImpl consumer = new WebSSOProfileConsumerImpl();
-        consumer.setMaxAuthenticationAge(5000);
-        return consumer;
+    /*
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/", "/home").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+            .logout()
+                .permitAll();
     }
+
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails user =
+             User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+   */ 
 }

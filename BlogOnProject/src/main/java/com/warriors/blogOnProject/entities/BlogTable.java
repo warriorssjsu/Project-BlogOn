@@ -5,23 +5,29 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="BlogTable")
 public class BlogTable {
-	@Id
+	
+	/*
 	@Column(name="Id", table="BloggerUser")
     private int userId;
-	
+	*/
 	@Column(name="BlogTitle")
 	private String blogTitle;
 	
-	@Column(name="BlogId", table="BloggerUser")
+	@Id
+	@Column(name="BlogId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int blogId;
 	
-	@Column(name="CatType", table="category_table")
-	private String blogCategory;
+	/*
+	@Column(name="name", table="category_table")
+	private String blogCategory;*/
 	
 	@Column(name="BlogDescription")
 	private String blogDescription;
@@ -37,7 +43,7 @@ public class BlogTable {
 	
 	@Column(name="Status")
 	private String status;
-
+/*
 	public int getUserId() {
 		return userId;
 	}
@@ -45,7 +51,7 @@ public class BlogTable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
+*/
 	public String getBlogTitle() {
 		return blogTitle;
 	}
@@ -61,7 +67,7 @@ public class BlogTable {
 	public void setBlogId(int blogId) {
 		this.blogId = blogId;
 	}
-
+/*
 	public String getBlogCategory() {
 		return blogCategory;
 	}
@@ -69,7 +75,7 @@ public class BlogTable {
 	public void setBlogCategory(String blogCategory) {
 		this.blogCategory = blogCategory;
 	}
-
+*/
 	public String getBlogDescription() {
 		return blogDescription;
 	}

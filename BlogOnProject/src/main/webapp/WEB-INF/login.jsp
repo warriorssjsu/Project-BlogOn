@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Home</title>
+<title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to BlogOn</h1>
-<a href="/login"><h3>Login</h3></a>
+
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.warriors.blogOnProject.entities.Category;
 
+
 @Repository
 public class CategoryDao {
 	
@@ -28,5 +29,6 @@ public class CategoryDao {
 		}
 		
 	}
+	
 
 }

@@ -16,17 +16,17 @@ public class BloggerUser {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int Id;
 	
+	@Column(name="display_name")
 	private String display_name;
 	
 
 	@Column(name="BlogId")
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int blogId;
 	
 	@Column(name="Role")
 	private String role;
 	
-	@Column(name="Role")
+	@Column(name="Followers")
 	private int followers;
 	
 	@Column(name="BlogCategory")

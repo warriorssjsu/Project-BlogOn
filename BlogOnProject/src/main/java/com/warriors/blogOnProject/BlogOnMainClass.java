@@ -12,8 +12,6 @@ import com.warriors.blogOnProject.entities.Category;
 @SpringBootApplication
 public class BlogOnMainClass  extends SpringBootServletInitializer implements CommandLineRunner{
 	
-	@Autowired
-	private CategoryDao categoryDao;
 	
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(BlogOnMainClass.class, args);
@@ -24,18 +22,16 @@ public class BlogOnMainClass  extends SpringBootServletInitializer implements Co
 		return application.sources(BlogOnMainClass.class);
 	}
 
-    @Override
+   @Override
     public void run(String... args) throws Exception{
-    	Category category = getCategory();
-    	categoryDao.createCategory(category);
 	}
-    
+    /*
     private Category getCategory() {
     	Category category = new Category();
     	category.setName("Art");
 		return category;
     	
-    }
+    }*/
 	
 
 }

@@ -9,12 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="BloggerUser")
+@Table(name="blogger_user_table")
 public class BloggerUser {
 	@Id
-	@Column(name="Id")
+	@Column(name="bloggerId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int Id;
+	private int bloggerId;
 	
 	@Column(name="display_name")
 	private String display_name;
@@ -23,6 +23,14 @@ public class BloggerUser {
 	@Column(name="BlogId")
 	private int blogId;
 	
+	public int getBloggerId() {
+		return bloggerId;
+	}
+
+	public void setBloggerId(int bloggerId) {
+		this.bloggerId = bloggerId;
+	}
+
 	@Column(name="Role")
 	private String role;
 	
@@ -31,14 +39,6 @@ public class BloggerUser {
 	
 	@Column(name="BlogCategory")
 	private String blogCategory;
-
-	public int getId() {
-		return Id;
-	}
-
-	public void setId(int id) {
-		Id = id;
-	}
 
 	public String getDisplay_name() {
 		return display_name;

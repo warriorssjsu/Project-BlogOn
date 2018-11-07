@@ -11,12 +11,12 @@
   <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.16.RELEASE</version>
+		<version>2.0.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	
 	<properties>
-	<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+	<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -77,16 +77,27 @@
       <scope>test</scope>
     </dependency>
     
-    <dependency>
+<!-- <dependency>
       <groupId>org.springframework.security.extensions</groupId>
       <artifactId>spring-security-saml-dsl</artifactId>
       <version>1.0.0.M3</version>
     </dependency>
-    
+     -->    
     <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-security</artifactId>
 </dependency>
+<!-- <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-client</artifactId>
+    <version>5.1.1.RELEASE</version>
+   </dependency> -->
+   <dependency>
+    <groupId>org.springframework.security.oauth.boot</groupId>
+    <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+    <version>2.0.0.RELEASE</version>
+   </dependency>
+ 
 <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-test</artifactId>

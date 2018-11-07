@@ -1,19 +1,27 @@
 package com.warriors.blogOnProject.dao;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.context.annotation.Lazy;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 import com.warriors.blogOnProject.entities.Category;
 
 
 @Repository
-public class CategoryDao {
+//@Transactional
+public interface CategoryDao extends JpaRepository<Category, Long>{
+     
 	
-	@Autowired
+	/*@Autowired
 	private SessionFactory sessionFactory;
-	public void createCategory(Category category) {
+	
+	public void createCategory(@Lazy Category category) {
 		Session session = null;
 		
 		try {
@@ -28,7 +36,7 @@ public class CategoryDao {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
 
 }

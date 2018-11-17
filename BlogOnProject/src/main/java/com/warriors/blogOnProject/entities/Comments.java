@@ -1,40 +1,32 @@
 package com.warriors.blogOnProject.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="comments_table")
 public class Comments {
 
 	@Id
-	@Column(name="CommentId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int commentId;
+	private int id;
 	
-	@Column(name="CommentDescription")
 	private String commentdesc;
-
-	public int getCommentId() {
-		return commentId;
-	}
-
-	public void setCommentId(int commentId) {
-		this.commentId = commentId;
-	}
-
-	public String getCommentdesc() {
-		return commentdesc;
-	}
-
-	public void setCommentdesc(String commentdesc) {
-		this.commentdesc = commentdesc;
-	}
 	
-	
-	
+	@ManyToOne(cascade=CascadeType.PERSIST)
+	private Blog blog;
+
 }

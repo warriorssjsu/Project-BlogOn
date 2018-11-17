@@ -1,5 +1,10 @@
 package com.warriors.blogOnProject;
 
+import java.util.Date;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +18,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.warriors.blogOnProject.dao.CategoryDao;
+import com.warriors.blogOnProject.dao.CategoryRepository;
+import com.warriors.blogOnProject.entities.Blog;
 import com.warriors.blogOnProject.entities.Category;
 
 
@@ -22,7 +28,12 @@ import com.warriors.blogOnProject.entities.Category;
 @EnableJpaAuditing
 public class BlogOnMainClass  extends SpringBootServletInitializer implements CommandLineRunner{
 	
-	private CategoryDao categoryDao;
+	private CategoryRepository categoryRepository;
+	
+	public BlogOnMainClass(CategoryRepository repository) {
+        this.categoryRepository = repository;
+    }
+
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(BlogOnMainClass.class, args);
 	}
@@ -34,15 +45,25 @@ public class BlogOnMainClass  extends SpringBootServletInitializer implements Co
 
    @Override
     public void run(String... args) throws Exception{
-	/*   Category category  = getCategory();
-	   categoryDao.createCategory(category);
+	   
+	   Stream.of("Art", "Technology", "Travel",
+               "Science","Social Life","Festivals", "Culture").forEach(name ->
+               categoryRepository.save(new Category(name))
+       );
+
+	   Category cat = categoryRepository.findByName("Technology");
+       Blog b = Blog.builder().title("Full Stack Reactive 1")
+               .description("Reactive with Spring Boot + React 1")
+               .timestamp(Instant.parse("2018-11-16T18:00:00.000Z"))
+               .status("Published")
+               //.category(cat)
+               .build();
+       cat.setBlogs(Collections.singleton(b));
+       categoryRepository.save(cat);
+
+       categoryRepository.findAll().forEach(System.out::println);
    }
-	   private Category getCategory() {
-   	   Category category = new Category();
-   	   category.setName("Art");
-	   return category;
-   	*/
-	}
+
    
    @Bean
    public RequestContextListener requestContextListener() {

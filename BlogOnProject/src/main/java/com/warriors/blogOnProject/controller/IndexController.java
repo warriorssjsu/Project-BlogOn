@@ -1,11 +1,23 @@
 package com.warriors.blogOnProject.controller;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.util.Collections;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,40 +25,51 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.warriors.blogOnProject.dao.CategoryDao;
+import com.warriors.blogOnProject.dao.CategoryRepository;
 import com.warriors.blogOnProject.entities.Category;
 
 @EnableWebMvc
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api")
 public class IndexController {
 	
 	@Autowired
-    CategoryDao categoryDao;
+    CategoryRepository categoryDao;
 	
-	/*@RequestMapping("/")
-    public ModelAndView index(Principal principal,ModelAndView mv) {  
-		System.out.println(principal.getName());
-		mv.addObject("name", principal.getName());
-        return new ModelAndView("home"); 
-    }*/
-	@RequestMapping("/")
-    public String index(ModelAndView mv) {  
+	@GetMapping("/home")
+    public String home(ModelAndView mv) {  
         return "home"; 
     }
-	@RequestMapping("/home")
+	
+	
+	/*@GetMapping("/")
+    public String index(ModelAndView mv) {  
+        return "home"; 
+    }*/
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/private")
+	@Profile("prod")
+    public void redirectToRoot(HttpServletResponse response) throws IOException {
+		response.sendRedirect("/");
+    }
+	
+	/*@RequestMapping("/home")
     public ModelAndView Home(ModelAndView mv) {  
 		
         return new ModelAndView("home"); 
     }
 	
 	@RequestMapping("/login")
-    public String login(Principal principal,ModelAndView mv) {  
-		 return "homeafterlogin"; 
+    public ModelAndView Login(ModelAndView mv) {  
+		
+        return new ModelAndView("homeafterlogin"); 
     }
+	
 	
 	@PostMapping("/categories")
 	public Category createCategories(@Valid @RequestBody Category category) {
 		category.setName("Art");
 	    return categoryDao.save(category);
-	}
+	}*/
 }

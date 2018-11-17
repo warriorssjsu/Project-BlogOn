@@ -14,7 +14,7 @@ public class FollowingWho {
 	@Id
 	@Column(name="FollowingWhoId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int FollowingWhoId;
+	private int id;
 		
 	@Column(name="FollowerId")
 	private int followerId;

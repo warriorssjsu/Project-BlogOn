@@ -40,7 +40,7 @@ public class CategoryController {
 	    }
 
 	    @GetMapping("/categories")
-	    @CrossOrigin(origins = "http://localhost:3000")
+	    //@CrossOrigin(origins = "http://localhost:3000")
 	    Collection<Category> categories(Principal principal) {
 	    	System.out.println("in api/categories method "+(principal.getName()));
 	    	System.out.println(categoryRepository.findAll());

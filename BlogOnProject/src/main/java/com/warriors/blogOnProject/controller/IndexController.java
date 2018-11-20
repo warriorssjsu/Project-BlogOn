@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.warriors.blogOnProject.dao.CategoryRepository;
 import com.warriors.blogOnProject.entities.Category;
 
-@EnableWebMvc
-@RestController
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api")
+//@EnableOAuth2Client
+@Controller
+//@RequestMapping("/api")
+//@RestController
+
+@Profile("prod")
 public class IndexController {
 	
 	@Autowired
@@ -42,17 +45,19 @@ public class IndexController {
         return "home"; 
     }
 	
-	
-	/*@GetMapping("/")
-    public String index(ModelAndView mv) {  
-        return "home"; 
+	//@CrossOrigin(origins = "http://localhost:3000")
+	/*@RequestMapping("/")
+    public String index() {  
+        return "index"; 
     }*/
-	@CrossOrigin(origins = "http://localhost:3000")
+	//@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/private")
-	@Profile("prod")
-    public void redirectToRoot(HttpServletResponse response) throws IOException {
-		response.sendRedirect("/");
+	public String redirectToRoot() {
+        return "redirect:/";
     }
+	/*public void redirectToRoot(HttpServletResponse response) throws IOException {
+		response.sendRedirect("/");
+    }*/
 	
 	/*@RequestMapping("/home")
     public ModelAndView Home(ModelAndView mv) {  

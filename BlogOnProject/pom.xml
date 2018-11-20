@@ -148,15 +148,15 @@
   <profiles>
     <profile>
         <id>dev</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
         <properties>
             <spring.profiles.active>dev</spring.profiles.active>
         </properties>
     </profile>
     <profile>
         <id>prod</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
         <build>
             <plugins>
                 <plugin>
@@ -169,7 +169,7 @@
                                 <goal>copy-resources</goal>
                             </goals>
                             <configuration>
-                                <outputDirectory>${basedir}/target/classes/static</outputDirectory>
+                                <outputDirectory>${basedir}/target/classes/public/</outputDirectory>
                                 <resources>
                                 <resource>
                                         <directory>frontend/build</directory>
@@ -204,7 +204,7 @@
                                 </goals>
                             <phase>generate-resources</phase>
                         </execution>
-                        <execution>
+                        <!-- <execution>
                             <id>yarn test</id>
                             <goals>
                                 <goal>yarn</goal>
@@ -213,7 +213,7 @@
                             <configuration>
                                 <arguments>test</arguments>
                             </configuration>
-                        </execution>
+                        </execution> -->
                         <execution>
                             <id>yarn build</id>
                             <goals>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import './Home.css';
-import { Input } from 'reactstrap';
+
 
 
 class CategoryList extends Component {

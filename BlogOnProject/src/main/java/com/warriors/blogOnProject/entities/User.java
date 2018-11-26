@@ -26,13 +26,13 @@ import lombok.NoArgsConstructor;
 @Table(name="user_table")
 public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;	
+	//@GeneratedValue(strategy=GenerationType.AUTO)
+	private String id;	
 	private String name;	
-	private String role;
+	//private String role;
 	private String email;
-	private int followers;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private Set<Blog> blogs;
+	
+	/*@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private Set<Blog> blogs;*/
 }

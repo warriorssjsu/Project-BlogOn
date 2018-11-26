@@ -2,11 +2,23 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-import './Home.css';
+import {  Navigation, Body, Title, select } from "./containers";
+import AppNavbar from './AppNavbar';
+import { AppNavigation } from "./AppNavigation";
+import './createBlog.css';
+import styled from "styled-components";
+import {
+  AppContainer as BaseAppContainer
+} from "./containers";
+
+const AppContainer = styled(BaseAppContainer)`
+  height: calc(100vh - 40px);
+`;
 
 
 
-class CategoryList extends Component {
+
+class createBlog extends Component {
 
 static propTypes = {
     cookies: instanceOf(Cookies).isRequired
@@ -35,19 +47,34 @@ static propTypes = {
 
   render() {
     const {cats, isLoading} = this.state;
+    
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
     return (
-        <div className="Home-div">
-        <select >
+        <div >
+        <AppNavbar />  
+        <AppContainer>          
+        <Navigation>
+          <h2></h2>
+          <AppNavigation />
+        </Navigation>
+      
+        <Body className="Blog-body" >
+          <Title><h2>Create New Blog</h2> </Title>
+          <form>
+        <select>
           {cats.map((group) => <option key={group.id} >{group.name}</option>)}
-        </select>                    
-          </div>
+        </select> 
+
+        </form>
+        </Body> 
+        </AppContainer>                  
+        </div>
     );
 }
 }
 
-export default withCookies(withRouter(CategoryList));
+export default withCookies(withRouter(createBlog));

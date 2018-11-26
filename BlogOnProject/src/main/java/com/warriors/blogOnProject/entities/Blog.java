@@ -19,6 +19,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -29,6 +32,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -43,17 +47,18 @@ public class Blog {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	private String title;
 	
+	@Length(max=16777215)
 	private String description;
 	
 	/*@ManyToOne(cascade=CascadeType.PERSIST)
 	private Category category;*/
 	
-	/*@ManyToOne(cascade=CascadeType.PERSIST)
-    private User user;*/
+	@ManyToOne(cascade=CascadeType.PERSIST)
+    private User user;	
 	
 	/*@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private ArrayList<Comments> comments;*/
@@ -65,6 +70,8 @@ public class Blog {
 	private Instant timestamp;
 	
 	private String status;
+	
+	private String category;
 	
 	@Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

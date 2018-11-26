@@ -42,7 +42,7 @@ public class BlogOnMainClass  extends SpringBootServletInitializer implements Co
    @Override
     public void run(String... args) throws Exception{
 	   
-	   Stream.of("Art", "Technology", "Travel",
+	  /* Stream.of("Art", "Technology", "Travel",
                "Science","Social Life","Festivals", "Culture").forEach(name ->
                categoryRepository.save(new Category(name))
        );
@@ -57,7 +57,7 @@ public class BlogOnMainClass  extends SpringBootServletInitializer implements Co
        cat.setBlogs(Collections.singleton(b));
        categoryRepository.save(cat);
 
-       categoryRepository.findAll().forEach(System.out::println);
+       categoryRepository.findAll().forEach(System.out::println);*/
    }
 
    

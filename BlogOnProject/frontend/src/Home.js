@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
-import { Button, Container } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { withCookies } from 'react-cookie';
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+import {  Navigation, Body } from "./containers";
+import { Route, Switch } from 'react-router-dom';
+
+import BlogList from './BlogList';
+import BlogEdit from './BlogEdit';
+import RenderItems2 from './RenderItems2';
+import { Basic } from './Basic';
+
+import AppNavbar from './AppNavbar';
+import { AppNavigation } from "./AppNavigation";
+
+import styled from "styled-components";
+import {
+  AppContainer as BaseAppContainer
+} from "./containers";
+
+const AppContainer = styled(BaseAppContainer)`
+  height: calc(100vh - 40px);
+`;
 
 class Home extends Component {
   state = {
@@ -12,14 +33,13 @@ class Home extends Component {
     isAuthenticated: false,
     user: undefined
   };
-  
+
 
   constructor(props) {
     super(props);
     const {cookies} = props;
     this.state.csrfToken = cookies.get('XSRF-TOKEN');
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
+
   }
 
   async componentDidMount() {
@@ -32,58 +52,51 @@ class Home extends Component {
     }
   }
 
-  login() {
-    let port = (window.location.port ? ':' + window.location.port : '');
-    if (port === ':3000') {
-      port = ':8080';
-    }
-    window.location.href = '//' + window.location.hostname + port + '/private';
-  }
-
-  logout() {
-    fetch('/api/logout', {method: 'POST', credentials: 'include',
-      headers: {'X-XSRF-TOKEN': this.state.csrfToken}}).then(res => res.json())
-      .then(response => {
-        window.location.href = response.logoutUrl + "?id_token_hint=" +
-          response.idToken + "&post_logout_redirect_uri=" + window.location.origin;
-      });
-  }
-
   render() {
-    
-      
-
-    const button = this.state.isAuthenticated ?
-    <div className="Home-header">
-        <Button color="none">BlogOn</Button>
-        <Button color="none" onClick={this.logout}>Logout</Button>
-      </div> :
-      <div className="Home-header">
-      <Button color="none">BlogOn</Button>
-      <Button color="none" onClick={this.login}>Login</Button>
-      </div>;
+  
 
       const message = this.state.user ?
       <div>
-        <h2>Welcome, {this.state.user.name}!</h2>
-        <Button color="none"><Link to="/categories">Create New Blog</Link></Button>
-      </div> :
-      <div>
+        
+        <AppContainer>          
+        <Navigation>
+          <h2></h2>
+          <AppNavigation />
+        </Navigation>          
+          <Body className="Home-div">
+            <h2>Welcome, {this.state.user.name}!</h2>
+            <Button color="none"><Link to="/blogs/new">Create New Blog</Link></Button>
+          </Body>
+        <Switch>
+            <Route path="//blog" component={BlogEdit} />
+            <Route path="//view" component={BlogList} />
+            <Route path="//viewTop" component={RenderItems2} />
+            <Route path="/basic" component={Basic} />
+        </Switch>
+      
+      </AppContainer>
+                
+      </div > :
+      <Body className="Home-div">
       <h2>Share your experiences with us, with all</h2>
-      <p>Create free blogs, read interesting blogs and tell us how you feel about it.</p></div>;
+      <p>Create free blogs, read interesting blogs and tell us how you feel about it.</p>
+      
+      </Body>;
     
     
-    return (
-      <div className="Home-div">
-        <Container fluid>
-        {button}
-        {message}
+    return (   
+      <div>
+      
+        <AppNavbar />     
+             {message}         
+           
           
-        </Container>
       </div>
+
     );  
   }
   
 }
+
 
 export default withCookies(Home);

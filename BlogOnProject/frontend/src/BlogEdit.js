@@ -6,7 +6,7 @@ import { instanceOf } from 'prop-types';
 import { Cookies, withCookies } from 'react-cookie';
 import {  Navigation, Body, Title } from "./containers";
 
-import { AppNavigation } from "./AppNavigation";
+import SideNavigation from "./SideNavigation";
 import './createBlog.css';
 
 import styled from "styled-components";
@@ -92,7 +92,7 @@ class BlogEdit extends Component {
       <AppContainer>
         <Navigation>
           <h2></h2>
-          <AppNavigation />
+          <SideNavigation />
         </Navigation>
         <Body className="Blog-body">
         <Title>{title}</Title>
@@ -101,9 +101,9 @@ class BlogEdit extends Component {
         
         <FormGroup>
           
-        <select name="category" id="category" value={this.state.value} selectedValue={item.category || ''}
+        <select name="category" id="category" value={item.category || ''}
              onChange={this.handleChange}   autoComplete="category" >
-          {cats.map((group) => <option key={group.id} >{group.name}</option>)}
+          {cats.map((group) => <option value={group.name} key={group.id} >{group.name}</option>)}
         </select> 
         </FormGroup>
           <FormGroup>

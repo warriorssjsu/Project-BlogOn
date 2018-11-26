@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.warriors.blogOnProject.AdminService;
 import com.warriors.blogOnProject.dao.CategoryRepository;
 import com.warriors.blogOnProject.entities.Category;
 
@@ -36,45 +37,21 @@ import com.warriors.blogOnProject.entities.Category;
 
 @Profile("prod")
 public class IndexController {
-	
-	@Autowired
-    CategoryRepository categoryDao;
-	
+		
 	@GetMapping("/home")
     public String home(ModelAndView mv) {  
         return "home"; 
     }
 	
 	//@CrossOrigin(origins = "http://localhost:3000")
-	/*@RequestMapping("/")
-    public String index() {  
-        return "index"; 
-    }*/
-	//@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/private")
 	public String redirectToRoot() {
         return "redirect:/";
     }
+	
 	/*public void redirectToRoot(HttpServletResponse response) throws IOException {
 		response.sendRedirect("/");
     }*/
 	
-	/*@RequestMapping("/home")
-    public ModelAndView Home(ModelAndView mv) {  
-		
-        return new ModelAndView("home"); 
-    }
 	
-	@RequestMapping("/login")
-    public ModelAndView Login(ModelAndView mv) {  
-		
-        return new ModelAndView("homeafterlogin"); 
-    }
-	
-	
-	@PostMapping("/categories")
-	public Category createCategories(@Valid @RequestBody Category category) {
-		category.setName("Art");
-	    return categoryDao.save(category);
-	}*/
 }

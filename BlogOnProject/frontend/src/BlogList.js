@@ -8,7 +8,7 @@ import { withCookies, Cookies } from 'react-cookie';
 
 import {  Navigation, Body, Title } from "./containers";
 
-import { AppNavigation } from "./AppNavigation";
+import SideNavigation from "./SideNavigation";
 
 import './createBlog.css';
 
@@ -83,7 +83,7 @@ class BlogList extends Component {
       <AppContainer>
         <Navigation>
           <h2></h2>
-          <AppNavigation />
+          <SideNavigation />
         </Navigation>
         <Body className="Blog-body">
           

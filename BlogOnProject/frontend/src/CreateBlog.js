@@ -4,7 +4,7 @@ import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import {  Navigation, Body, Title, select } from "./containers";
 import AppNavbar from './AppNavbar';
-import { AppNavigation } from "./AppNavigation";
+import SideNavigation from "./SideNavigation";
 import './createBlog.css';
 import styled from "styled-components";
 import {
@@ -59,7 +59,7 @@ static propTypes = {
         <AppContainer>          
         <Navigation>
           <h2></h2>
-          <AppNavigation />
+          <SideNavigation />
         </Navigation>
       
         <Body className="Blog-body" >

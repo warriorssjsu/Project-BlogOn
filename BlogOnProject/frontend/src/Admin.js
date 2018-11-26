@@ -12,7 +12,6 @@ import { Route, Switch } from 'react-router-dom';
 
 import BlogList from './BlogList';
 import BlogEdit from './BlogEdit';
-import RenderItems2 from './RenderItems2';
 
 import AppNavbar from './AppNavbar';
 import SideNavigation from "./SideNavigation";
@@ -26,7 +25,7 @@ const AppContainer = styled(BaseAppContainer)`
   height: calc(100vh - 40px);
 `;
 
-class Home extends Component {
+class Admin extends Component {
   state = {
     isLoading: true,
     isAuthenticated: false,
@@ -42,7 +41,7 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const response = await fetch('/api/user', {credentials: 'include'});
+    const response = await fetch('/api/admin', {credentials: 'include'});
     const body = await response.text();
     if (body === '') {
       this.setState(({isAuthenticated: false}))
@@ -55,15 +54,14 @@ class Home extends Component {
   
 
       const message = this.state.user ?
-      <div>
-        
+      <div>        
         <AppContainer>          
         <Navigation>
           <h2></h2>
           <SideNavigation />
         </Navigation>          
-          <Body className="Home-div">
-            <h2>Welcome, {this.state.user.name}!</h2>
+          <Body >
+            <h2>Welcome admin, {this.state.user.name}!</h2>
             <Button color="none"><Link to="/blogs/new">Create New Blog</Link></Button>
           </Body>
       
@@ -92,4 +90,4 @@ class Home extends Component {
 }
 
 
-export default withCookies(Home);
+export default withCookies(Admin);

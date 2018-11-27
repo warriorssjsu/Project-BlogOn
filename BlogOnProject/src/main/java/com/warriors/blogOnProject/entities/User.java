@@ -28,9 +28,9 @@ public class User {
 	@Id
 	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;	
-	private String name;	
-	//private String role;
+	private String name;
 	private String email;
+	private String role;
 	
 	
 	/*@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)

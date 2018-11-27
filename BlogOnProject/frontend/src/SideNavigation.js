@@ -59,12 +59,30 @@ function SidebarExample() {
         </Nav>
         </Link>
 
-        <Link to="/blogs">
+        <Link to="/topblogs">
         <Nav id="viewTop">
           <NavIcon>
             <Icon icon={render} />
           </NavIcon>
           <Text>View Top Blogs</Text>
+        </Nav>
+        </Link>
+
+        <Link to="/allblogs">
+        <Nav id="viewAll">
+          <NavIcon>
+            <Icon icon={render} />
+          </NavIcon>
+          <Text>View All Blogs</Text>
+        </Nav>
+        </Link>
+
+        <Link to="/manageblogs">
+        <Nav id="viewAll">
+          <NavIcon>
+            <Icon icon={render} />
+          </NavIcon>
+          <Text>Manage Blogs</Text>
         </Nav>
         </Link>
 
@@ -76,23 +94,6 @@ function SidebarExample() {
           <Text>Settings</Text>
         </Nav>
         </Link>
-          {/* <ul style={{ listStyleType: "none", padding: 0 }}>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/blogs/new">Create New Blog</Link>
-            </li>
-            <li>
-              <Link to="/blogs">View My Blogs</Link>
-            </li>
-            <li>
-              <Link to="/blogs">View Top Blogs</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-          </ul> */}
       </SideNav>
     
   );

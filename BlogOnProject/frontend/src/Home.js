@@ -8,11 +8,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import {  Navigation, Body } from "./containers";
-import { Route, Switch } from 'react-router-dom';
-
-import BlogList from './BlogList';
-import BlogEdit from './BlogEdit';
-import RenderItems2 from './RenderItems2';
 
 import AppNavbar from './AppNavbar';
 import SideNavigation from "./SideNavigation";
@@ -64,7 +59,6 @@ class Home extends Component {
         </Navigation>          
           <Body className="Home-div">
             <h2>Welcome, {this.state.user.name}!</h2>
-            <Button color="none"><Link to="/blogs/new">Create New Blog</Link></Button>
           </Body>
       
       </AppContainer>

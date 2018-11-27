@@ -6,9 +6,13 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.warriors.blogOnProject.AdminService;
+import com.warriors.blogOnProject.dao.UserRepository;
+import com.warriors.blogOnProject.entities.Blog;
+import com.warriors.blogOnProject.entities.User;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,34 +24,45 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class UserController {
     private ClientRegistration registration;
-    final AdminService adminService;
+    private UserRepository userRepository;
 
-    public UserController(ClientRegistrationRepository registrations, AdminService adminService) {
+    public UserController(ClientRegistrationRepository registrations, UserRepository userRepository ) {
         this.registration = registrations.findByRegistrationId("okta");
-        this.adminService = adminService;
+        this.userRepository =userRepository;
     }
 
     @GetMapping("/api/user")
     public ResponseEntity<?> getUser(@AuthenticationPrincipal OAuth2User user) {
+    	System.out.println("authentication type "+this.registration.getAuthorizationGrantType());
         if (user == null) {
         	System.out.println("user is null");
             return new ResponseEntity<>("", HttpStatus.OK);
         } else {
-        	System.out.println("in getUser method"+user.getName());
-        	System.out.println("in getUser role"+user.getAuthorities());
+                	
         	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         	System.out.println(authentication);
+        	Map<String, Object> details = user.getAttributes();            
+            String userId = details.get("sub").toString();
+            Optional<User> optUser = userRepository.findById(userId);
+            if(!optUser.isPresent()) {
+        	userRepository.save(new User(userId,
+                    details.get("name").toString(), details.get("email").toString(),"user"));}
             return ResponseEntity.ok().body(user.getAttributes());
         }
     }
@@ -67,11 +82,23 @@ public class UserController {
         return ResponseEntity.ok().body(logoutDetails);
     }
     
-    @RequestMapping("/api/admin")  
-    public ResponseEntity<?> getAdmin(@AuthenticationPrincipal OAuth2User user) {
+    
+    @GetMapping("/api/role")
+    public ResponseEntity<?> getRole(@AuthenticationPrincipal OAuth2User principal) {
+    	System.out.println("In /api/role/id method ");
+        Map<String, Object> details = principal.getAttributes();
+        
+        String userId = details.get("sub").toString();
+    	Optional<User> optUser =userRepository.findById(userId);
+    	
+    	return optUser.map(response -> ResponseEntity.ok().body(response))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    /*
+    @RequestMapping("/api/admin")
+    public ResponseEntity<?> getAdmin(HttpServletRequest request, @AuthenticationPrincipal OAuth2User user) {
     	System.out.println("server side /api/admin");
-    	Boolean ensured =adminService.ensureAdmin();  
-        if (user == null) {
+    	if (user == null) {
         	System.out.println("user is null");
             return new ResponseEntity<>("", HttpStatus.OK);
         } else {
@@ -79,6 +106,6 @@ public class UserController {
         	System.out.println("in admin role"+user.getAuthorities());
             return ResponseEntity.ok().body(user.getAttributes());
         }
-    }
+    }*/
 	
 }

@@ -9,6 +9,7 @@ import TopBlogList from './TopBlogList';
 import AllBlogList from './AllBlogList';
 import ManageBlogList from './ManageBlogList';
 import Settings from './Settings';
+import profileSaved from './profileSaved';
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
           <Route path='/manageblogs' exact={true} component={ManageBlogList}/>
           <Route path='/blogs/:id' component={BlogEdit}/>
           <Route path='/settings' component={Settings}/>
+          <Route path='/savedProfile' component={profileSaved}/>
           
         </Switch>
       </Router>

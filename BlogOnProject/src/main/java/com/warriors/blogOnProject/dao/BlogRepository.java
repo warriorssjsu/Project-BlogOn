@@ -19,6 +19,8 @@ public interface BlogRepository  extends JpaRepository<Blog, Long> {
 	
 	@Query("select b from Blog b order by likes desc ")
 	List<Blog> findTop3OrderBylikesDesc();
-	
 
+	Blog findByTitle(String title);
+
+	
 }

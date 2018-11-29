@@ -45,6 +45,12 @@ import lombok.RequiredArgsConstructor;
         allowGetters = true)
 public class Blog {
 	
+
+	public Blog(String title) {
+		this.title =title;
+		// TODO Auto-generated constructor stub
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;

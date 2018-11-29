@@ -94,7 +94,6 @@ class AllBlogList extends Component {
            
           <div style={{float:'right'}} >
           <ButtonGroup>
-            <Button size="sm" color="primary" tag={Link} to={"/blogs/" + blog.id}>Edit</Button>
             <Button size="sm" style={{marginLeft:1}} color="danger" onClick={() => {if(window.confirm('Delete the blog?')) {this.remove(blog.id)};}}>Delete</Button>
           </ButtonGroup></div>
           
@@ -113,7 +112,7 @@ class AllBlogList extends Component {
         </Navigation>
         <Body className="Blog-body">
         <Title><h2>Manage Blogs </h2></Title>
-        <h2>You dont have authorization to this link</h2>
+        <h2>You dont have authorization to this link. Please contact admin at pooja.agarwal@sjsu.edu</h2>
         </Body>
       </AppContainer>
     </div>:

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
+//import { Link } from 'react-router-dom';
+import { Table } from 'reactstrap';
 import { withCookies } from 'react-cookie';
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

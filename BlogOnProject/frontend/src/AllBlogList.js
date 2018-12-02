@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Button, ButtonGroup } from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
@@ -96,7 +96,7 @@ class AllBlogList extends Component {
             <Button size="sm" style={{marginLeft:1}}  onClick={() =>{ this.handleShare(blog.id)}}>Share</Button>
             </ButtonGroup>
           </div>
-          
+          <hr />
         </div>
         
     });

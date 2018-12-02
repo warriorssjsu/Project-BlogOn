@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import blog_home from './blog_home.jpg'
+import blog_after_home from './blog_after_home.jpg'
+//import { Link } from 'react-router-dom';
+//import { Button } from 'reactstrap';
 import { withCookies } from 'react-cookie';
 import './Home.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -59,6 +61,8 @@ class Home extends Component {
         </Navigation>          
           <Body className="Home-div">
             <h2>Welcome, {this.state.user.name}!</h2>
+            <p>Start your today's blog</p>
+            <div><img src={blog_after_home} width="400" height="250" /></div>
           </Body>
       
       </AppContainer>
@@ -67,7 +71,7 @@ class Home extends Component {
       <Body className="Home-div">
       <h2>Share your experiences with us, with all</h2>
       <p>Create free blogs, read interesting blogs and tell us how you feel about it.</p>
-      
+      <div><img src={blog_home} width="800" height="450" /></div>
       </Body>;
     
     

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.warriors.blogOnProject.AdminService;
 import com.warriors.blogOnProject.dao.UserRepository;
 import com.warriors.blogOnProject.entities.Blog;
 import com.warriors.blogOnProject.entities.User;
@@ -31,6 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,22 +50,31 @@ public class UserController {
 
     @GetMapping("/api/user")
     public ResponseEntity<?> getUser(@AuthenticationPrincipal OAuth2User user) {
+    	String role  = "user";
     	System.out.println("authentication type "+this.registration.getAuthorizationGrantType());
-        if (user == null) {
-        	System.out.println("user is null");
-            return new ResponseEntity<>("", HttpStatus.OK);
-        } else {
-                	
-        	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        	System.out.println(authentication);
-        	Map<String, Object> details = user.getAttributes();            
-            String userId = details.get("sub").toString();
-            Optional<User> optUser = userRepository.findById(userId);
-            if(!optUser.isPresent()) {
-        	userRepository.save(new User(userId,
-                    details.get("name").toString(), details.get("email").toString(),"user"));}
-            return ResponseEntity.ok().body(user.getAttributes());
-        }
+
+    	if (user == null) {
+    		System.out.println("user is null");
+    		return new ResponseEntity<>("", HttpStatus.OK);
+    	} else {
+
+    		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    		System.out.println(authentication);
+    		Map<String, Object> details = user.getAttributes();            
+    		String userId = details.get("sub").toString();
+    		Optional<User> optUser = userRepository.findById(userId);
+    		if(!optUser.isPresent()) {
+    			String grp =details.get("groups").toString();
+    			System.out.println("groups "+grp);
+    			if(grp.contains("Admin")) {
+
+    				System.out.println("in if");
+    				role= "Admin";
+    			}            
+    			userRepository.save(new User(userId,
+    					details.get("name").toString(), details.get("email").toString(),role));}
+    		return ResponseEntity.ok().body(user.getAttributes());
+    	}
     }
 
     @PostMapping("/api/logout")
@@ -94,18 +104,5 @@ public class UserController {
     	return optUser.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    /*
-    @RequestMapping("/api/admin")
-    public ResponseEntity<?> getAdmin(HttpServletRequest request, @AuthenticationPrincipal OAuth2User user) {
-    	System.out.println("server side /api/admin");
-    	if (user == null) {
-        	System.out.println("user is null");
-            return new ResponseEntity<>("", HttpStatus.OK);
-        } else {
-        	System.out.println("in admin method"+user.getName());
-        	System.out.println("in admin role"+user.getAuthorities());
-            return ResponseEntity.ok().body(user.getAttributes());
-        }
-    }*/
 	
 }

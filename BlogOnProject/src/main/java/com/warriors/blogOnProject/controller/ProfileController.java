@@ -43,18 +43,17 @@ public class ProfileController {
     @PostMapping("/profile")
     ResponseEntity<Profile> createProfile(@Valid @RequestBody Profile profile, 
     		@AuthenticationPrincipal OAuth2User principal) throws URISyntaxException {
-        log.info("Request to create profile: {}", profile);
-                
-        Map<String, Object> details = principal.getAttributes();
-        
-        String userId = details.get("sub").toString();
-        System.out.println("details userId "+userId);
-     // check to see if user already exists
-        
-       Optional<User> user = userRepository.findById(userId);
-        Profile result = profilegRepository.save(profile);
-        return ResponseEntity.created(new URI("/api/profile/" + result.getId()))
-                .body(result);
+    	log.info("Request to create profile: {}", profile);
+
+    	Map<String, Object> details = principal.getAttributes();
+    	String userId = details.get("sub").toString();
+    	System.out.println("details userId "+userId);
+    	// check to see if user already exists
+    	Optional<User> user = userRepository.findById(userId);
+    	
+    	Profile result = profilegRepository.save(profile);
+    	return ResponseEntity.created(new URI("/api/profile/" + result.getId()))
+    			.body(result);
     }
     
     

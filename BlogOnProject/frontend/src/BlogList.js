@@ -79,12 +79,12 @@ class BlogList extends Component {
 
   render() {
     const {blogs, isLoading} = this.state;
-    const {item} = this.state;
+    
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-       
+    
     const blogList = blogs.map(blog => {
 
       const blogDesc = ` ${blog.description || ''} `;
@@ -96,7 +96,9 @@ class BlogList extends Component {
           <ButtonGroup>
             <Button size="sm" color="primary" tag={Link} to={"/blogs/" + blog.id}>Edit</Button>
             <Button size="sm" style={{marginLeft:1}} color="danger" onClick={() => {if(window.confirm('Delete the blog?')) {this.remove(blog.id)};}}>Delete</Button>
-          </ButtonGroup></div>
+          </ButtonGroup>
+          </div>
+          <hr />
           
         </div>
         

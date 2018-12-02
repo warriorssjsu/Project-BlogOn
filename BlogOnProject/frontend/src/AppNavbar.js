@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 //import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { withCookies } from 'react-cookie';
 import './AppNavbar.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,7 +35,7 @@ class AppNavbar extends Component {
   login() {
     let port = (window.location.port ? ':' + window.location.port : '');
     if (port === ':3000') {
-      port = ':8080';
+      port = ':8443';
     }
     window.location.href = '//' + window.location.hostname + port + '/private';
   }
@@ -54,11 +54,11 @@ class AppNavbar extends Component {
 
     const button = this.state.isAuthenticated ?
     <div className="AppNav-header">
-        <Button color="none"><Link to="/">BlogOn</Link></Button>
+        <h2 style ={{color:"#fff"}}><em><b>BlogOn</b></em></h2>
         <Button color="none" onClick={this.logout}>Logout</Button>
       </div> :
       <div className="AppNav-header">
-      <Button color="none">BlogOn</Button>
+       <h2 style ={{color:"#fff"}}><em><b>BlogOn</b></em></h2>
       <Button color="none" onClick={this.login}>Login</Button>
       </div>;
 

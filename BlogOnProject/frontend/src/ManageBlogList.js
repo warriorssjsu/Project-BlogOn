@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Button, ButtonGroup } from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
@@ -96,13 +96,13 @@ class AllBlogList extends Component {
           <ButtonGroup>
             <Button size="sm" style={{marginLeft:1}} color="danger" onClick={() => {if(window.confirm('Delete the blog?')) {this.remove(blog.id)};}}>Delete</Button>
           </ButtonGroup></div>
-          
+          <hr />
         </div>
         
     });
 
     return (
-        ('admin' !== item.role)? 
+        ('Admin' !== item.role)? 
         <div>
       <AppNavbar/>
       <AppContainer>

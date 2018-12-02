@@ -48,7 +48,6 @@ public class Blog {
 
 	public Blog(String title) {
 		this.title =title;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Id
@@ -59,16 +58,10 @@ public class Blog {
 	
 	@Length(max=16777215)
 	private String description;
-	
-	/*@ManyToOne(cascade=CascadeType.PERSIST)
-	private Category category;*/
-	
+		
 	@ManyToOne(cascade=CascadeType.PERSIST)
     private User user;	
-	
-	/*@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-    private ArrayList<Comments> comments;*/
-		
+			
 	private int likes;
 	
 	private int shares;
@@ -88,6 +81,12 @@ public class Blog {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    
+    /*@ManyToOne(cascade=CascadeType.PERSIST)
+	private Category category;*/
+    
+    /*@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private ArrayList<Comments> comments;*/
 
 	
 }

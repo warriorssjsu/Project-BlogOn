@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Table, Button, ButtonGroup } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link, withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';

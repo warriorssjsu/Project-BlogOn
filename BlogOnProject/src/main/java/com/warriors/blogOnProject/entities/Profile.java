@@ -30,6 +30,8 @@ public class Profile {
 		private String displayName;	
 		private String dob;
 		private String secEmail;
+		
+		@Length(max=16777215)
 		private String address;
 		
 				

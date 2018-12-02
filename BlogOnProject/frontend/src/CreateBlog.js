@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-import {  Navigation, Body, Title, select } from "./containers";
+import {  Navigation, Body, Title } from "./containers";
 import AppNavbar from './AppNavbar';
 import SideNavigation from "./SideNavigation";
 import './createBlog.css';

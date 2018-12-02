@@ -76,23 +76,33 @@ public class BlogController {
     @PostMapping("/blog")
     ResponseEntity<Blog> createBlog(@Valid @RequestBody Blog blog, 
     		@AuthenticationPrincipal OAuth2User principal) throws URISyntaxException {
-        log.info("Request to create blog: {}", blog);
-                
-        Map<String, Object> details = principal.getAttributes();
-        
-        String userId = details.get("sub").toString();
-        System.out.println("details userId "+userId);
-     // check to see if user already exists
-        
-       Optional<User> user = userRepository.findById(userId);
-       
-       blog.setUser(user.orElse(new User(userId,
-                    details.get("name").toString(), details.get("email").toString(),"user"
-                    )));
-        
-        Blog result = blogRepository.save(blog);
-        return ResponseEntity.created(new URI("/api/blog/" + result.getId()))
-                .body(result);
+    	log.info("Request to create blog: {}", blog);
+
+    	String role  = "user";
+
+    	Map<String, Object> details = principal.getAttributes();
+
+    	String userId = details.get("sub").toString();
+    	System.out.println("details userId "+userId);
+    	
+    	// check to see if user already exists
+
+    	Optional<User> user = userRepository.findById(userId);
+    	String grp =details.get("groups").toString();
+    	System.out.println("groups "+grp);
+    	if(grp.contains("Admin")) {
+
+    		System.out.println("in if");
+    		role= "Admin";
+    	} 
+
+    	blog.setUser(user.orElse(new User(userId,
+    			details.get("name").toString(), details.get("email").toString(), role
+    			)));
+
+    	Blog result = blogRepository.save(blog);
+    	return ResponseEntity.created(new URI("/api/blog/" + result.getId()))
+    			.body(result);
     }
     
       

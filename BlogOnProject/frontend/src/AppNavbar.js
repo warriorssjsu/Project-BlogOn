@@ -54,11 +54,11 @@ class AppNavbar extends Component {
 
     const button = this.state.isAuthenticated ?
     <div className="AppNav-header">
-        <h2 style ={{color:"#fff"}}><em><b>BlogOn</b></em></h2>
+        <a style ={{ 'text-decoration':"none"}} href="/"><h2 style ={{color:"#fff"}}><em><b>BlogOn</b></em></h2></a>
         <Button color="none" onClick={this.logout}>Logout</Button>
       </div> :
       <div className="AppNav-header">
-       <h2 style ={{color:"#fff"}}><em><b>BlogOn</b></em></h2>
+       <a style ={{ 'text-decoration':"none"}} href="/"><h2 style ={{color:"#fff"}}><em><b>BlogOn</b></em></h2></a>
       <Button color="none" onClick={this.login}>Login</Button>
       </div>;
 

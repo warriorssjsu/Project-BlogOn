@@ -119,7 +119,7 @@ class BlogEdit extends Component {
         
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}
-            <Button color="secondary" tag={Link} to="/blogs">Cancel</Button>
+            <Button color="secondary" tag={Link} to="/">Cancel</Button>
           </FormGroup>
         </Form>
         </Body>

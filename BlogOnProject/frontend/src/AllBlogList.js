@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Button, ButtonGroup } from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
@@ -21,7 +21,7 @@ const AppContainer = styled(BaseAppContainer)`
   height: calc(100vh - 40px);
 `;
 
-class BlogList extends Component {
+class AllBlogList extends Component {
    static propTypes = {
     cookies: instanceOf(Cookies).isRequired
   };
@@ -38,53 +38,51 @@ class BlogList extends Component {
       item: this.emptyItem, 
       csrfToken: cookies.get('XSRF-TOKEN'), 
       isLoading: true};
-    this.remove = this.remove.bind(this);
+      this.handleLike = this.handleLike.bind(this);
+      this.handleShare = this.handleShare.bind(this);
    
   }
 
   async componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('api/myblogs', {credentials: 'include'})
+    fetch('api/blogs', {credentials: 'include'})
       .then(response => response.json())
       .then(data => this.setState({blogs: data, isLoading: false}))
       .catch(() => this.props.history.push('/'));
 
-      try {
-      const user = await (await fetch(`/api/role`,{credentials: 'include'})).json();
-      this.setState({item: user});
-    } catch (error) {
-        this.props.history.push('/');
-      }
-
   
   }
 
-  async remove(id) {
-    await fetch(`/api/blog/${id}`, {
-      method: 'DELETE',
+ async handleLike(id) {
+    await fetch(`/api/likeblog/${id}`, {
       headers: {
         'X-XSRF-TOKEN': this.state.csrfToken,
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       credentials: 'include'
-    }).then(() => {
-      let updatedBlogs = [...this.state.blogs].filter(i => i.id !== id);
-      this.setState({blogs: updatedBlogs});
     });
   }
 
+  async handleShare(id) {
+    await fetch(`/api/shareblog/${id}`, {
+      headers: {
+        'X-XSRF-TOKEN': this.state.csrfToken,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include'
+    });
+  } 
 
 
   render() {
     const {blogs, isLoading} = this.state;
-    
+   
     if (isLoading) {
       return <p>Loading...</p>;
-    }
-
-    
+    }       
     const blogList = blogs.map(blog => {
 
       const blogDesc = ` ${blog.description || ''} `;
@@ -92,14 +90,13 @@ class BlogList extends Component {
         <h3 style={{whiteSpace: 'nowrap'}}>{blog.title} ({blog.category})</h3>
         <div>{blogDesc}</div>  
            
-          <div style={{float:'right'}}>
-          <ButtonGroup>
-            <Button size="sm" color="primary" tag={Link} to={"/blogs/" + blog.id}>Edit</Button>
-            <Button size="sm" style={{marginLeft:1}} color="danger" onClick={() => {if(window.confirm('Delete the blog?')) {this.remove(blog.id)};}}>Delete</Button>
-          </ButtonGroup>
+          <div style={{float:'right'}}>          
+            <ButtonGroup>
+            <Button id ="like" size="sm" onClick={() =>{ this.handleLike(blog.id) }} >Like</Button>
+            <Button size="sm" style={{marginLeft:1}}  onClick={() =>{ this.handleShare(blog.id)}}>Share</Button>
+            </ButtonGroup>
           </div>
           <hr />
-          
         </div>
         
     });
@@ -114,7 +111,7 @@ class BlogList extends Component {
         </Navigation>
         <Body className="Blog-body">
           
-          <Title><h2>My Blogs </h2></Title>
+          <Title><h2>All Blogs </h2></Title>
             {blogList}
             
         </Body>
@@ -124,4 +121,4 @@ class BlogList extends Component {
   }
 }
 
-export default withCookies(withRouter(BlogList));
+export default withCookies(withRouter(AllBlogList));

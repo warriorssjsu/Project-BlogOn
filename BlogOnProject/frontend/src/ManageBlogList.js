@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Button, ButtonGroup } from 'reactstrap';
 import AppNavbar from './AppNavbar';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 
@@ -21,7 +21,7 @@ const AppContainer = styled(BaseAppContainer)`
   height: calc(100vh - 40px);
 `;
 
-class BlogList extends Component {
+class AllBlogList extends Component {
    static propTypes = {
     cookies: instanceOf(Cookies).isRequired
   };
@@ -45,7 +45,7 @@ class BlogList extends Component {
   async componentDidMount() {
     this.setState({isLoading: true});
 
-    fetch('api/myblogs', {credentials: 'include'})
+    fetch('api/blogs', {credentials: 'include'})
       .then(response => response.json())
       .then(data => this.setState({blogs: data, isLoading: false}))
       .catch(() => this.props.history.push('/'));
@@ -79,11 +79,11 @@ class BlogList extends Component {
 
   render() {
     const {blogs, isLoading} = this.state;
-    
+    const {item} = this.state;
     if (isLoading) {
       return <p>Loading...</p>;
     }
-
+    
     
     const blogList = blogs.map(blog => {
 
@@ -92,19 +92,30 @@ class BlogList extends Component {
         <h3 style={{whiteSpace: 'nowrap'}}>{blog.title} ({blog.category})</h3>
         <div>{blogDesc}</div>  
            
-          <div style={{float:'right'}}>
+          <div style={{float:'right'}} >
           <ButtonGroup>
-            <Button size="sm" color="primary" tag={Link} to={"/blogs/" + blog.id}>Edit</Button>
             <Button size="sm" style={{marginLeft:1}} color="danger" onClick={() => {if(window.confirm('Delete the blog?')) {this.remove(blog.id)};}}>Delete</Button>
-          </ButtonGroup>
-          </div>
+          </ButtonGroup></div>
           <hr />
-          
         </div>
         
     });
 
     return (
+        ('Admin' !== item.role)? 
+        <div>
+      <AppNavbar/>
+      <AppContainer>
+        <Navigation>
+          <h2></h2>
+          <SideNavigation />
+        </Navigation>
+        <Body className="Blog-body">
+        <Title><h2>Manage Blogs </h2></Title>
+        <h2>You dont have authorization to this link. Please contact admin at pooja.agarwal@sjsu.edu</h2>
+        </Body>
+      </AppContainer>
+    </div>:
       <div>
       <AppNavbar/>
       <AppContainer>
@@ -114,7 +125,7 @@ class BlogList extends Component {
         </Navigation>
         <Body className="Blog-body">
           
-          <Title><h2>My Blogs </h2></Title>
+          <Title><h2>Manage Blogs </h2></Title>
             {blogList}
             
         </Body>
@@ -124,4 +135,4 @@ class BlogList extends Component {
   }
 }
 
-export default withCookies(withRouter(BlogList));
+export default withCookies(withRouter(AllBlogList));

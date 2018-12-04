@@ -14,9 +14,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.context.request.RequestContextListener;
-import com.warriors.blogOnProject.dao.CategoryRepository;
-import com.warriors.blogOnProject.entities.Blog;
-import com.warriors.blogOnProject.entities.Category;
 
 
 
@@ -24,12 +21,6 @@ import com.warriors.blogOnProject.entities.Category;
 @EnableJpaAuditing
 public class BlogOnMainClass  extends SpringBootServletInitializer implements CommandLineRunner{
 	
-	private CategoryRepository categoryRepository;
-	
-	public BlogOnMainClass(CategoryRepository repository) {
-        this.categoryRepository = repository;
-    }
-
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(BlogOnMainClass.class, args);
 	}

@@ -5,7 +5,11 @@ import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import BlogEdit from './BlogEdit';
 import BlogList from './BlogList';
-import Admin from './Admin'
+import TopBlogList from './TopBlogList';
+import AllBlogList from './AllBlogList';
+import ManageBlogList from './ManageBlogList';
+import Settings from './Settings';
+import profileSaved from './profileSaved';
 
 class App extends Component {
   render() {
@@ -17,8 +21,13 @@ class App extends Component {
           <Route path='/home' exact={true} component={Home}/>
           <Route path='/login' exact={true} component={Home}/>          
           <Route path='/blogs' exact={true} component={BlogList}/>
+          <Route path='/topblogs' exact={true} component={TopBlogList}/>
+          <Route path='/allblogs' exact={true} component={AllBlogList}/>
+          <Route path='/manageblogs' exact={true} component={ManageBlogList}/>
           <Route path='/blogs/:id' component={BlogEdit}/>
-          <Route path='/admin' exact={true} component={Admin}/>
+          <Route path='/settings' component={Settings}/>
+          <Route path='/savedProfile' component={profileSaved}/>
+          
         </Switch>
       </Router>
       </CookiesProvider>

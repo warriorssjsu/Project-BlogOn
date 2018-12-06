@@ -92,8 +92,7 @@ class AllBlogList extends Component {
            
           <div style={{float:'right'}}>          
             <ButtonGroup>
-            <Button id ="like" size="sm" onClick={() =>{ this.handleLike(blog.id) }} >Like</Button>
-            <Button size="sm" style={{marginLeft:1}}  onClick={() =>{ this.handleShare(blog.id)}}>Share</Button>
+               <Button id ="like" size="sm" onClick={() =>{ this.handleLike(blog.id) }} >Like</Button>
             </ButtonGroup>
           </div>
           <hr />

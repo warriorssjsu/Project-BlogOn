@@ -94,7 +94,6 @@ class TopBlogList extends Component {
           
             <ButtonGroup>
             <Button id ="like" size="sm" onClick={() =>{ this.handleLike(blog.id) }} >Like</Button>
-            <Button size="sm" style={{marginLeft:1}}  onClick={() =>{ this.handleShare(blog.id)}}>Share</Button>
             </ButtonGroup>
           </div>
          <hr /> 

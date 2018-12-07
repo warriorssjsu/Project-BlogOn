@@ -24,6 +24,16 @@ public class IndexController {
         return "redirect:/";
     }
 	
+	@GetMapping("/login")
+	public String redirectLoginToRoot() {
+        return "redirect:/";
+    }
+	
+	@GetMapping("/error")
+	public String redirectErrorToRoot() {
+        return "redirect:/";
+    }
+	
 	/*public void redirectToRoot(HttpServletResponse response) throws IOException {
 		response.sendRedirect("/");
     }*/
